@@ -31,13 +31,13 @@ const Hero = () => {
           <span className="text-sm font-medium text-primary">AI Automation Simplified</span>
         </div>
 
-        <h1 className="text-5xl md:text-7xl font-bold mb-6 leading-tight">
+        <h1 className="text-5xl md:text-7xl font-bold mb-6 leading-tight font-display">
           Transform Your Business
           <br />
           <span 
             className="bg-clip-text text-transparent animate-gradient-shift"
             style={{
-              backgroundImage: "linear-gradient(90deg, hsl(195 90% 50%), hsl(280 90% 60%), hsl(195 100% 65%), hsl(195 90% 50%))",
+              backgroundImage: "linear-gradient(90deg, hsl(87 100% 44%), hsl(73 100% 60%), hsl(82 88% 52%), hsl(87 100% 44%))",
               backgroundSize: "200% 200%",
             }}
           >

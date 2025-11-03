@@ -8,46 +8,46 @@ All colors MUST be HSL.
 
 @layer base {
   :root {
-    --background: 220 25% 6%;
-    --foreground: 210 40% 98%;
+    --background: 145 100% 8%;
+    --foreground: 120 40% 98%;
 
-    --card: 220 20% 10%;
-    --card-foreground: 210 40% 98%;
+    --card: 145 80% 12%;
+    --card-foreground: 120 40% 98%;
 
-    --popover: 220 20% 10%;
-    --popover-foreground: 210 40% 98%;
+    --popover: 145 80% 12%;
+    --popover-foreground: 120 40% 98%;
 
-    --primary: 195 90% 50%;
-    --primary-foreground: 220 25% 6%;
-    --primary-glow: 195 100% 65%;
+    --primary: 87 100% 44%;
+    --primary-foreground: 145 100% 8%;
+    --primary-glow: 82 88% 52%;
 
-    --secondary: 220 20% 15%;
-    --secondary-foreground: 210 40% 98%;
+    --secondary: 145 60% 18%;
+    --secondary-foreground: 120 40% 98%;
 
-    --muted: 220 20% 15%;
-    --muted-foreground: 215 15% 65%;
+    --muted: 145 50% 18%;
+    --muted-foreground: 120 20% 65%;
 
-    --accent: 195 90% 50%;
-    --accent-foreground: 220 25% 6%;
+    --accent: 87 100% 44%;
+    --accent-foreground: 145 100% 8%;
 
     --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 210 40% 98%;
+    --destructive-foreground: 120 40% 98%;
 
-    --border: 220 20% 18%;
-    --input: 220 20% 18%;
-    --ring: 195 90% 50%;
+    --border: 145 50% 20%;
+    --input: 145 50% 20%;
+    --ring: 87 100% 44%;
 
     --radius: 0.75rem;
 
     /* Gradients */
-    --gradient-primary: linear-gradient(135deg, hsl(195 90% 50%), hsl(195 100% 65%));
-    --gradient-dark: linear-gradient(180deg, hsl(220 25% 6%), hsl(220 25% 10%));
-    --gradient-accent: linear-gradient(135deg, hsl(220 20% 15%), hsl(220 20% 20%));
+    --gradient-primary: linear-gradient(135deg, hsl(87 100% 44%), hsl(82 88% 52%));
+    --gradient-dark: linear-gradient(180deg, hsl(145 100% 8%), hsl(145 80% 12%));
+    --gradient-accent: linear-gradient(135deg, hsl(145 60% 18%), hsl(125 50% 22%));
 
     /* Shadows */
-    --shadow-glow: 0 0 40px hsl(195 90% 50% / 0.3);
-    --shadow-card: 0 10px 40px -10px hsl(195 90% 50% / 0.2);
-    --shadow-elegant: 0 20px 60px -15px hsl(220 25% 0% / 0.5);
+    --shadow-glow: 0 0 40px hsl(87 100% 44% / 0.4);
+    --shadow-card: 0 10px 40px -10px hsl(87 100% 44% / 0.3);
+    --shadow-elegant: 0 20px 60px -15px hsl(145 100% 0% / 0.6);
 
     /* Animations */
     --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
@@ -61,5 +61,10 @@ All colors MUST be HSL.
 
   body {
     @apply bg-background text-foreground;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  }
+  
+  h1, h2, h3, h4, h5, h6 {
+    font-family: 'Space Grotesk', 'Inter', sans-serif;
   }
 }

@@ -33,7 +33,7 @@ const Contact = () => {
               <Sparkles className="w-5 h-5 text-primary animate-glow-pulse" />
               <span className="text-sm font-medium text-primary">Get Started</span>
             </div>
-            <h2 className="text-4xl md:text-5xl font-bold mb-4">
+            <h2 className="text-4xl md:text-5xl font-bold mb-4 font-display">
               Ready to Transform Your Business?
             </h2>
             <p className="text-xl text-muted-foreground">

@@ -27,7 +27,7 @@ const Services = () => {
     <section id="services" className="py-24 bg-gradient-dark">
       <div className="container mx-auto px-6">
         <div className="text-center mb-16 animate-fade-in">
-          <h2 className="text-4xl md:text-5xl font-bold mb-4">
+          <h2 className="text-4xl md:text-5xl font-bold mb-4 font-display">
             Our <span className="text-primary">Solutions</span>
           </h2>
           <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
