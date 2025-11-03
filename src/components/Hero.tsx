@@ -1,10 +1,10 @@
 import { Button } from "@/components/ui/button";
-import { ArrowRight, Sparkles } from "lucide-react";
+import { ArrowRight, Play } from "lucide-react";
 import heroBackground from "@/assets/hero-background.jpg";
 
 const Hero = () => {
-  const scrollToContact = () => {
-    const element = document.getElementById("contact");
+  const scrollToSection = (id: string) => {
+    const element = document.getElementById(id);
     if (element) {
       element.scrollIntoView({ behavior: "smooth" });
     }
@@ -12,7 +12,6 @@ const Hero = () => {
 
   return (
     <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
-      {/* Background Image with Overlay */}
       <div
         className="absolute inset-0 z-0"
         style={{
@@ -21,59 +20,67 @@ const Hero = () => {
           backgroundPosition: "center",
         }}
       >
-        <div className="absolute inset-0 bg-gradient-to-b from-background/95 via-background/85 to-background" />
+        <div className="absolute inset-0 bg-gradient-to-b from-background/95 via-background/90 to-background" />
       </div>
 
-      {/* Content */}
-      <div className="container mx-auto px-6 relative z-10 text-center animate-fade-in-up">
-        <div className="flex items-center justify-center gap-2 mb-6">
-          <Sparkles className="w-5 h-5 text-primary animate-glow-pulse" />
-          <span className="text-sm font-medium text-primary">AI Automation Simplified</span>
-        </div>
-
-        <h1 className="text-5xl md:text-7xl font-bold mb-6 leading-tight font-display">
-          Transform Your Business
-          <br />
-          <span 
-            className="bg-clip-text text-transparent animate-gradient-shift"
-            style={{
-              backgroundImage: "linear-gradient(90deg, hsl(87 100% 44%), hsl(73 100% 60%), hsl(82 88% 52%), hsl(87 100% 44%))",
-              backgroundSize: "200% 200%",
-            }}
-          >
-            with AI Alchemy
-          </span>
-        </h1>
-
-        <p className="text-xl md:text-2xl text-muted-foreground max-w-3xl mx-auto mb-10">
-          We help non-tech businesses integrate AI chatbots and workflow automation
-          into their existing systems. Make your business faster, smarter, and more
-          customer-focused.
-        </p>
-
-        <div className="flex flex-col sm:flex-row gap-4 justify-center">
-          <Button variant="hero" size="lg" onClick={scrollToContact}>
-            Start Your Transformation
-            <ArrowRight className="w-5 h-5" />
-          </Button>
-          <Button variant="glass" size="lg">
-            Learn More
-          </Button>
-        </div>
-
-        {/* Stats */}
-        <div className="grid grid-cols-3 gap-8 max-w-2xl mx-auto mt-20">
-          <div className="animate-fade-in">
-            <div className="text-3xl md:text-4xl font-bold text-primary mb-2">50%</div>
-            <div className="text-sm text-muted-foreground">Time Saved</div>
+      <div className="container mx-auto px-6 pt-32 pb-20 relative z-10">
+        <div className="max-w-5xl mx-auto text-center animate-fade-in">
+          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-card/50 backdrop-blur-sm border border-primary/20 mb-6">
+            <span className="text-sm font-semibold text-primary">AI Automation Simplified</span>
           </div>
-          <div className="animate-fade-in" style={{ animationDelay: "0.1s" }}>
-            <div className="text-3xl md:text-4xl font-bold text-primary mb-2">3x</div>
-            <div className="text-sm text-muted-foreground">Lead Generation</div>
+
+          <h1 className="text-5xl md:text-7xl font-black mb-6 tracking-tight">
+            We Turn Your Manual Processes Into{" "}
+            <span 
+              className="bg-gradient-to-r from-primary via-primary to-accent bg-clip-text text-transparent animate-gradient-shift"
+              style={{
+                backgroundSize: "200% 200%",
+                backgroundImage: "linear-gradient(135deg, hsl(87 100% 51%), hsl(73 100% 60%), hsl(82 88% 52%), hsl(87 100% 51%))"
+              }}
+            >
+              Money-Making Machines
+            </span>
+          </h1>
+
+          <p className="text-xl md:text-2xl text-muted-foreground mb-8 max-w-3xl mx-auto leading-relaxed">
+            Join 500+ businesses saving 15+ hours weekly with our no-code AI chatbots 
+            and workflow automation. Get your first automation running in 7 days or less.
+          </p>
+
+          <div className="flex flex-col sm:flex-row gap-4 justify-center mb-12">
+            <Button
+              size="lg"
+              variant="hero"
+              onClick={() => scrollToSection("contact")}
+              className="text-base"
+            >
+              Get Your Free Automation Audit
+              <ArrowRight className="ml-2 w-5 h-5" />
+            </Button>
+            <Button
+              size="lg"
+              variant="outline"
+              onClick={() => scrollToSection("solutions")}
+              className="text-base border-primary text-primary hover:bg-primary/10"
+            >
+              <Play className="mr-2 w-5 h-5" />
+              See How It Works
+            </Button>
           </div>
-          <div className="animate-fade-in" style={{ animationDelay: "0.2s" }}>
-            <div className="text-3xl md:text-4xl font-bold text-primary mb-2">24/7</div>
-            <div className="text-sm text-muted-foreground">Automation</div>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-3xl mx-auto">
+            <div className="text-center">
+              <div className="text-3xl font-black text-primary mb-2">50%</div>
+              <div className="text-sm text-muted-foreground font-semibold">Time Saved</div>
+            </div>
+            <div className="text-center">
+              <div className="text-3xl font-black text-primary mb-2">3x</div>
+              <div className="text-sm text-muted-foreground font-semibold">Lead Generation</div>
+            </div>
+            <div className="text-center">
+              <div className="text-3xl font-black text-primary mb-2">24/7</div>
+              <div className="text-sm text-muted-foreground font-semibold">Automation</div>
+            </div>
           </div>
         </div>
       </div>
