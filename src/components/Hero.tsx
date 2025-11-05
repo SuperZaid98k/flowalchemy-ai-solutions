@@ -1,6 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { ArrowRight, Play } from "lucide-react";
 import heroBackground from "@/assets/hero-background.jpg";
+import ParticleBackground from "./ParticleBackground";
 
 const Hero = () => {
   const scrollToSection = (id: string) => {
@@ -22,6 +23,8 @@ const Hero = () => {
       >
         <div className="absolute inset-0 bg-gradient-to-b from-background/95 via-background/90 to-background" />
       </div>
+      
+      <ParticleBackground />
 
       <div className="container mx-auto px-6 pt-32 pb-20 relative z-10">
         <div className="max-w-5xl mx-auto text-center animate-fade-in">
