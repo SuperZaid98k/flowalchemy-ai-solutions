@@ -1,9 +1,40 @@
+import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { ArrowRight, Play } from "lucide-react";
 import heroBackground from "@/assets/hero-background.jpg";
 import ParticleBackground from "./ParticleBackground";
 
 const Hero = () => {
+  const words = ["Smarter", "Faster", "Effortless", "Profitable", "Scalable"];
+  const [currentWordIndex, setCurrentWordIndex] = useState(0);
+  const [displayText, setDisplayText] = useState("");
+  const [isDeleting, setIsDeleting] = useState(false);
+
+  useEffect(() => {
+    const currentWord = words[currentWordIndex];
+    const typingSpeed = isDeleting ? 50 : 100;
+    const pauseTime = isDeleting ? 500 : 2000;
+
+    const timeout = setTimeout(() => {
+      if (!isDeleting) {
+        if (displayText.length < currentWord.length) {
+          setDisplayText(currentWord.slice(0, displayText.length + 1));
+        } else {
+          setTimeout(() => setIsDeleting(true), pauseTime);
+        }
+      } else {
+        if (displayText.length > 0) {
+          setDisplayText(displayText.slice(0, -1));
+        } else {
+          setIsDeleting(false);
+          setCurrentWordIndex((currentWordIndex + 1) % words.length);
+        }
+      }
+    }, typingSpeed);
+
+    return () => clearTimeout(timeout);
+  }, [displayText, isDeleting, currentWordIndex, words]);
+
   const scrollToSection = (id: string) => {
     const element = document.getElementById(id);
     if (element) {
@@ -33,7 +64,13 @@ const Hero = () => {
           </div>
 
           <h1 className="text-5xl md:text-7xl font-bold mb-6 tracking-tight">
-            Build Smarter, Faster, and More Profitable Systems with{" "}
+            Build{" "}
+            <span className="font-futuristic text-primary inline-block min-w-[280px] md:min-w-[400px] text-left">
+              {displayText}
+              <span className="animate-pulse">|</span>
+            </span>
+            <br />
+            Systems with{" "}
             <span 
               className="bg-gradient-to-r from-primary via-primary to-accent bg-clip-text text-transparent animate-gradient-shift"
               style={{
