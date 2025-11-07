@@ -1,6 +1,14 @@
 import { Sparkles, Linkedin, Twitter, Instagram, Mail } from "lucide-react";
+import { useNavigate } from "react-router-dom";
 
 const Footer = () => {
+  const navigate = useNavigate();
+
+  const handleLogoClick = () => {
+    navigate('/');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
   return (
     <footer className="py-16 border-t border-border/50 bg-background">
       <div className="container mx-auto px-6">
@@ -49,14 +57,28 @@ const Footer = () => {
             </h3>
             <ul className="space-y-4">
               <li>
-                <a href="#" className="text-muted-foreground hover:text-primary transition-colors text-lg">
+                <button 
+                  onClick={() => navigate('/about')}
+                  className="text-muted-foreground hover:text-primary transition-colors text-lg"
+                >
                   About Us
-                </a>
+                </button>
               </li>
               <li>
-                <a href="#contact" className="text-muted-foreground hover:text-primary transition-colors text-lg">
+                <button 
+                  onClick={() => {
+                    navigate('/');
+                    setTimeout(() => {
+                      const element = document.getElementById('contact');
+                      if (element) {
+                        element.scrollIntoView({ behavior: 'smooth' });
+                      }
+                    }, 100);
+                  }}
+                  className="text-muted-foreground hover:text-primary transition-colors text-lg"
+                >
                   Contact Us
-                </a>
+                </button>
               </li>
             </ul>
           </div>
@@ -65,12 +87,15 @@ const Footer = () => {
         {/* Bottom Bar */}
         <div className="pt-8 border-t border-border/50">
           <div className="flex flex-col lg:flex-row items-center justify-between gap-6">
-            <div className="flex items-center gap-2">
+            <button 
+              onClick={handleLogoClick}
+              className="flex items-center gap-2 hover:opacity-80 transition-opacity cursor-pointer"
+            >
               <Sparkles className="w-6 h-6 text-primary icon-glow" />
               <span className="text-xl font-bold bg-gradient-primary bg-clip-text text-transparent">
                 FlowAlchemy
               </span>
-            </div>
+            </button>
 
             <p className="text-sm text-muted-foreground text-center order-last lg:order-none">
               © 2025 FlowAlchemy. Transforming businesses through AI automation.
