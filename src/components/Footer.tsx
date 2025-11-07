@@ -2,83 +2,60 @@ import { Sparkles, Linkedin, Twitter, Instagram, Mail } from "lucide-react";
 
 const Footer = () => {
   return (
-    <footer className="py-16 border-t border-border bg-background/50 backdrop-blur-sm">
+    <footer className="py-16 border-t border-border/50 bg-background">
       <div className="container mx-auto px-6">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-12">
-          {/* Address Section */}
-          <div>
-            <h3 className="text-lg font-semibold mb-4 text-foreground">Address</h3>
-            <address className="not-italic text-muted-foreground leading-relaxed">
-              Azad Chowk, Near Hanuman<br />
-              Mandir, Sadar, Nagpur,<br />
-              Maharashtra, 440001
-            </address>
-          </div>
-
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-16 mb-16">
           {/* Connect With Us Section */}
           <div>
-            <h3 className="text-lg font-semibold mb-4 text-foreground">Connect With Us</h3>
+            <h3 className="text-xl font-bold mb-6 bg-gradient-primary bg-clip-text text-transparent">
+              Connect With Us
+            </h3>
             <div className="flex gap-4">
               <a
                 href="#"
-                className="w-10 h-10 rounded-full border border-border flex items-center justify-center hover:border-primary hover:bg-primary/10 transition-all"
+                className="w-12 h-12 rounded-xl bg-gradient-primary/10 backdrop-blur-sm border border-primary/20 flex items-center justify-center hover:bg-gradient-primary hover:scale-110 transition-all duration-300 shadow-elegant group"
                 aria-label="LinkedIn"
               >
-                <Linkedin className="w-5 h-5 text-muted-foreground hover:text-primary transition-colors" />
+                <Linkedin className="w-5 h-5 text-primary group-hover:text-white transition-colors" />
               </a>
               <a
                 href="#"
-                className="w-10 h-10 rounded-full border border-border flex items-center justify-center hover:border-primary hover:bg-primary/10 transition-all"
+                className="w-12 h-12 rounded-xl bg-gradient-primary/10 backdrop-blur-sm border border-primary/20 flex items-center justify-center hover:bg-gradient-primary hover:scale-110 transition-all duration-300 shadow-elegant group"
                 aria-label="Twitter"
               >
-                <Twitter className="w-5 h-5 text-muted-foreground hover:text-primary transition-colors" />
+                <Twitter className="w-5 h-5 text-primary group-hover:text-white transition-colors" />
               </a>
               <a
                 href="#"
-                className="w-10 h-10 rounded-full border border-border flex items-center justify-center hover:border-primary hover:bg-primary/10 transition-all"
+                className="w-12 h-12 rounded-xl bg-gradient-primary/10 backdrop-blur-sm border border-primary/20 flex items-center justify-center hover:bg-gradient-primary hover:scale-110 transition-all duration-300 shadow-elegant group"
                 aria-label="Instagram"
               >
-                <Instagram className="w-5 h-5 text-muted-foreground hover:text-primary transition-colors" />
+                <Instagram className="w-5 h-5 text-primary group-hover:text-white transition-colors" />
               </a>
               <a
                 href="#"
-                className="w-10 h-10 rounded-full border border-border flex items-center justify-center hover:border-primary hover:bg-primary/10 transition-all"
+                className="w-12 h-12 rounded-xl bg-gradient-primary/10 backdrop-blur-sm border border-primary/20 flex items-center justify-center hover:bg-gradient-primary hover:scale-110 transition-all duration-300 shadow-elegant group"
                 aria-label="Email"
               >
-                <Mail className="w-5 h-5 text-muted-foreground hover:text-primary transition-colors" />
+                <Mail className="w-5 h-5 text-primary group-hover:text-white transition-colors" />
               </a>
             </div>
           </div>
 
-          {/* AI-Powered Solutions Section */}
-          <div>
-            <h3 className="text-lg font-semibold mb-4 text-foreground">AI-Powered Solutions</h3>
-            <ul className="space-y-3">
-              <li>
-                <a href="#" className="text-muted-foreground hover:text-primary transition-colors">
-                  Custom AI Agent Development
-                </a>
-              </li>
-              <li>
-                <a href="#" className="text-muted-foreground hover:text-primary transition-colors">
-                  AI-Powered Web & App Development
-                </a>
-              </li>
-            </ul>
-          </div>
-
           {/* Company Section */}
           <div>
-            <h3 className="text-lg font-semibold mb-4 text-foreground">Company</h3>
-            <ul className="space-y-3">
+            <h3 className="text-xl font-bold mb-6 bg-gradient-primary bg-clip-text text-transparent">
+              Company
+            </h3>
+            <ul className="space-y-4">
               <li>
-                <a href="#" className="text-muted-foreground hover:text-primary transition-colors">
-                  About us
+                <a href="#" className="text-muted-foreground hover:text-primary transition-colors text-lg">
+                  About Us
                 </a>
               </li>
               <li>
-                <a href="#contact" className="text-muted-foreground hover:text-primary transition-colors">
-                  Contact us
+                <a href="#contact" className="text-muted-foreground hover:text-primary transition-colors text-lg">
+                  Contact Us
                 </a>
               </li>
             </ul>
@@ -86,31 +63,31 @@ const Footer = () => {
         </div>
 
         {/* Bottom Bar */}
-        <div className="pt-8 border-t border-border">
-          <div className="flex flex-col md:flex-row items-center justify-between gap-4">
+        <div className="pt-8 border-t border-border/50">
+          <div className="flex flex-col lg:flex-row items-center justify-between gap-6">
             <div className="flex items-center gap-2">
-              <Sparkles className="w-5 h-5 text-primary" />
-              <span className="text-lg font-bold bg-gradient-primary bg-clip-text text-transparent">
+              <Sparkles className="w-6 h-6 text-primary icon-glow" />
+              <span className="text-xl font-bold bg-gradient-primary bg-clip-text text-transparent">
                 FlowAlchemy
               </span>
             </div>
 
-            <p className="text-sm text-muted-foreground text-center">
+            <p className="text-sm text-muted-foreground text-center order-last lg:order-none">
               © 2025 FlowAlchemy. Transforming businesses through AI automation.
             </p>
 
-            <div className="flex gap-6">
+            <div className="flex items-center gap-8">
               <a
                 href="#"
                 className="text-sm text-muted-foreground hover:text-primary transition-colors"
               >
-                Privacy
+                Privacy Policy
               </a>
               <a
                 href="#"
                 className="text-sm text-muted-foreground hover:text-primary transition-colors"
               >
-                Terms
+                Terms of Service
               </a>
             </div>
           </div>
