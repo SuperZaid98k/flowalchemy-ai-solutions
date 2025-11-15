@@ -8,20 +8,54 @@ import { useToast } from "@/hooks/use-toast";
 
 const Contact = () => {
   const { toast } = useToast();
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const [formData, setFormData] = useState({
     name: "",
     email: "",
+    phone: "",
     business: "",
     message: "",
   });
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    toast({
-      title: "Message Sent!",
-      description: "We'll call you within 2 business hours.",
-    });
-    setFormData({ name: "", email: "", business: "", message: "" });
+    setIsSubmitting(true);
+
+    try {
+      const response = await fetch("https://n8n-xrcw.onrender.com/webhook/flowalchemy-form", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          name: formData.name,
+          email: formData.email,
+          phone: formData.phone,
+          business: formData.business,
+          message: formData.message,
+        }),
+      });
+
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+
+      toast({
+        title: "Message Sent!",
+        description: "We'll call you within 2 business hours.",
+      });
+      
+      setFormData({ name: "", email: "", phone: "", business: "", message: "" });
+    } catch (error) {
+      console.error("Form submission error:", error);
+      toast({
+        title: "Error",
+        description: "Failed to send message. Please try again.",
+        variant: "destructive",
+      });
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -53,6 +87,7 @@ const Contact = () => {
                       setFormData({ ...formData, name: e.target.value })
                     }
                     required
+                    disabled={isSubmitting}
                     className="bg-background/50"
                   />
                 </div>
@@ -69,25 +104,46 @@ const Contact = () => {
                       setFormData({ ...formData, email: e.target.value })
                     }
                     required
+                    disabled={isSubmitting}
                     className="bg-background/50"
                   />
                 </div>
               </div>
 
-              <div>
-                <label htmlFor="business" className="block text-sm font-semibold mb-2">
-                  Business Type
-                </label>
-                <Input
-                  id="business"
-                  placeholder="Real Estate, Retail, Healthcare, etc."
-                  value={formData.business}
-                  onChange={(e) =>
-                    setFormData({ ...formData, business: e.target.value })
-                  }
-                  required
-                  className="bg-background/50"
-                />
+              <div className="grid md:grid-cols-2 gap-6">
+                <div>
+                  <label htmlFor="phone" className="block text-sm font-semibold mb-2">
+                    Phone Number
+                  </label>
+                  <Input
+                    id="phone"
+                    type="tel"
+                    placeholder="+1 (555) 000-0000"
+                    value={formData.phone}
+                    onChange={(e) =>
+                      setFormData({ ...formData, phone: e.target.value })
+                    }
+                    required
+                    disabled={isSubmitting}
+                    className="bg-background/50"
+                  />
+                </div>
+                <div>
+                  <label htmlFor="business" className="block text-sm font-semibold mb-2">
+                    Business Type
+                  </label>
+                  <Input
+                    id="business"
+                    placeholder="Real Estate, Retail, Healthcare, etc."
+                    value={formData.business}
+                    onChange={(e) =>
+                      setFormData({ ...formData, business: e.target.value })
+                    }
+                    required
+                    disabled={isSubmitting}
+                    className="bg-background/50"
+                  />
+                </div>
               </div>
 
               <div>
@@ -102,13 +158,20 @@ const Contact = () => {
                     setFormData({ ...formData, message: e.target.value })
                   }
                   required
+                  disabled={isSubmitting}
                   rows={5}
                   className="bg-background/50 resize-none"
                 />
               </div>
 
-              <Button type="submit" variant="hero" size="lg" className="w-full text-base">
-                Book My Free Audit Now
+              <Button 
+                type="submit" 
+                variant="hero" 
+                size="lg" 
+                className="w-full text-base"
+                disabled={isSubmitting}
+              >
+                {isSubmitting ? "Sending..." : "Book My Free Audit Now"}
               </Button>
             </form>
 
