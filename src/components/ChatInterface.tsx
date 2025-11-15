@@ -20,6 +20,7 @@ const ChatInterface = ({ onClose }: ChatInterfaceProps) => {
   ]);
   const [input, setInput] = useState("");
   const [isLoading, setIsLoading] = useState(false);
+  const [sessionId] = useState(() => `session_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`);
   const scrollRef = useRef<HTMLDivElement>(null);
   const { toast } = useToast();
 
@@ -29,88 +30,38 @@ const ChatInterface = ({ onClose }: ChatInterfaceProps) => {
     }
   }, [messages]);
 
-  const streamChat = async (userMessage: Message) => {
-    const CHAT_URL = `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/chat`;
+  const sendMessageToN8N = async (userMessage: Message) => {
+    const N8N_CHAT_URL = "https://n8n-xrcw.onrender.com/webhook/f64b16d1-c098-4dd6-8e6d-5e64cb270d52/chat";
     
     try {
-      const resp = await fetch(CHAT_URL, {
+      const resp = await fetch(N8N_CHAT_URL, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          Authorization: `Bearer ${import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY}`,
         },
-        body: JSON.stringify({ messages: [...messages, userMessage] }),
+        body: JSON.stringify({ 
+          action: "sendMessage",
+          sessionId: sessionId,
+          chatInput: userMessage.content
+        }),
       });
 
-      if (resp.status === 429) {
-        toast({
-          title: "Rate limit exceeded",
-          description: "Please try again in a moment.",
-          variant: "destructive",
-        });
-        return;
+      if (!resp.ok) {
+        throw new Error(`HTTP error! status: ${resp.status}`);
       }
 
-      if (resp.status === 402) {
-        toast({
-          title: "Payment required",
-          description: "Please add credits to continue.",
-          variant: "destructive",
-        });
-        return;
-      }
+      const data = await resp.json();
+      
+      // Extract response from n8n chat trigger
+      // The response will be in 'output' or 'text' field based on your workflow
+      const assistantResponse = data.output || data.text || data.message || JSON.stringify(data);
 
-      if (!resp.ok || !resp.body) throw new Error("Failed to start stream");
+      // Add assistant's response to messages
+      setMessages(prev => [...prev, { 
+        role: "assistant", 
+        content: assistantResponse 
+      }]);
 
-      const reader = resp.body.getReader();
-      const decoder = new TextDecoder();
-      let textBuffer = "";
-      let streamDone = false;
-      let assistantContent = "";
-
-      // Add empty assistant message
-      setMessages(prev => [...prev, { role: "assistant", content: "" }]);
-
-      while (!streamDone) {
-        const { done, value } = await reader.read();
-        if (done) break;
-        textBuffer += decoder.decode(value, { stream: true });
-
-        let newlineIndex: number;
-        while ((newlineIndex = textBuffer.indexOf("\n")) !== -1) {
-          let line = textBuffer.slice(0, newlineIndex);
-          textBuffer = textBuffer.slice(newlineIndex + 1);
-
-          if (line.endsWith("\r")) line = line.slice(0, -1);
-          if (line.startsWith(":") || line.trim() === "") continue;
-          if (!line.startsWith("data: ")) continue;
-
-          const jsonStr = line.slice(6).trim();
-          if (jsonStr === "[DONE]") {
-            streamDone = true;
-            break;
-          }
-
-          try {
-            const parsed = JSON.parse(jsonStr);
-            const content = parsed.choices?.[0]?.delta?.content as string | undefined;
-            if (content) {
-              assistantContent += content;
-              setMessages(prev => {
-                const newMessages = [...prev];
-                newMessages[newMessages.length - 1] = {
-                  role: "assistant",
-                  content: assistantContent
-                };
-                return newMessages;
-              });
-            }
-          } catch {
-            textBuffer = line + "\n" + textBuffer;
-            break;
-          }
-        }
-      }
     } catch (error) {
       console.error("Chat error:", error);
       toast({
@@ -118,8 +69,6 @@ const ChatInterface = ({ onClose }: ChatInterfaceProps) => {
         description: "Failed to send message. Please try again.",
         variant: "destructive",
       });
-      // Remove the last empty assistant message on error
-      setMessages(prev => prev.slice(0, -1));
     } finally {
       setIsLoading(false);
     }
@@ -133,7 +82,7 @@ const ChatInterface = ({ onClose }: ChatInterfaceProps) => {
     setInput("");
     setIsLoading(true);
 
-    await streamChat(userMessage);
+    await sendMessageToN8N(userMessage);
   };
 
   const handleKeyPress = (e: React.KeyboardEvent) => {
